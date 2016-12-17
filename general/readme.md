@@ -3,6 +3,7 @@
 ## Table of Contents
 
 1. [Process](#process)
+2. [GitHub](#github)
 2. [Tabs](#tabs)
 3. [Grunt](#grunt)
 4. [Icons](#icons)
@@ -10,7 +11,24 @@
 
 ## Process
 
-Create a pull request as soon as you have enough code for others to start reviewing (~400 lines). Commit to the repo at minimum when modules/pages are ready for review, or at the end of every day, whichever comes first. Feel free to commit more often. 
+You can find checklists to help guide each stage of the project [here](https://github.com/brightbrightgreat/skeleton/tree/master/lists). Be sure to check these often as you make progress.
+
+If you are a contractor and/or not in BBG morning meetings, please check in with your project manager(s) once a week. To do so, send them an email every Friday with the following:
+
+- Total hours worked on project so far
+- How many hours did you use this week?
+- Did you discover anything that might require additional hours beyond the original estimate?
+- Are you on track to meet QA and launch deadlines?
+- What did you work on this week? 
+- What pieces do you plan to work on next week?
+- Is anything holding you back? Are you waiting on assets/assistance/information from anyone?
+- Do you have any concerns about the project?
+
+
+
+## GitHub
+
+Create a pull request as soon as you have enough code for others to start reviewing (~400 lines). Commit to the repo when modules/pages are ready for review, or at the end of every day, whichever comes first. Feel free to commit more often. 
 
 Master branches are protected and will need administrator approval before a pull request can be merged in. Please pay attention to any request for changes administrators may make of you and address their concerns.
 
