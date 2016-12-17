@@ -1,5 +1,18 @@
 # WordPress
 
+## Table of Contents
+
+1. [Enqueuing](#enqueuing)
+2. [Hooks](#hooks)
+3. [jQuery](#jquery)
+4. [Media](#media)
+5. [Plugins](#plugins)
+6. [Custom Fields](#custom-fields)
+7. [Custom Post Types & Taxonomy](#custom-post-types--taxonomy)
+8. [Forms](#forms)
+9. [Debugging](#debugging)
+10. [Help](#help)
+
 ## Enqueuing
 Enqueue scripts and styles through [`wp_enqueue_script()`](https://developer.wordpress.org/reference/functions/wp_enqueue_script/) and [`wp_enqueue_style()`](https://developer.wordpress.org/reference/functions/wp_enqueue_style/) rather than putting them directly in your templates. 
 
@@ -59,4 +72,6 @@ There will be a debug log on the staging site. Keep an eye on the debug log and 
 
 Plugins can also generate items in the log. We do not expect you to fix problems in plugin code. However, if a plugin is generating an excessive amount, its use should be reconsidered.
 
+## Help
 
+If you have any questions, please contact Tiffany Stoik ([tiffany@brightbrightgreat.com](mailto:tiffany@brightbrightgreat.com)).
