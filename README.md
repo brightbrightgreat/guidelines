@@ -5,10 +5,8 @@ Standards & best practices, technology guidelines, prefered libraries, etc.
 ## Table of Contents
 1. [General](/general)
 2. [WordPress](/wordpress)
-3. Shopify
-4. JavaScript
-5. CSS
-6. Security
+3. [CSS](/css)
+4. [Javascript](/javascript)
 
 ## Help
 
