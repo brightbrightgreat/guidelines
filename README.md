@@ -6,7 +6,6 @@ Standards & best practices, technology guidelines, prefered libraries, etc.
 1. [General](/general)
 2. [WordPress](/wordpress)
 3. [CSS](/css)
-4. [Javascript](/javascript)
 
 ## Help
 
