@@ -3,21 +3,27 @@
 ## Table of Contents
 
 1. [Enqueuing](#enqueuing)
-2. [Hooks](#hooks)
-3. [jQuery](#jquery)
-4. [Media](#media)
-5. [Plugins](#plugins)
-6. [Custom Fields](#custom-fields)
-7. [Custom Post Types & Taxonomy](#custom-post-types--taxonomy)
-8. [Forms](#forms)
-9. [Debugging](#debugging)
+2. [Hooks](#hooks-actions-and-filters)
+3. [Media](#media)
+4. [Plugins](#plugins)
+5. [Custom Fields](#custom-fields)
+6. [Custom Post Types & Taxonomy](#custom-post-types--taxonomy)
+7. [Forms](#forms)
+8. [Debugging](#debugging)
+9. [Miscellaneous](#miscellaneous)
 10. [Help](#help)
 
 ## Enqueuing
-Enqueue scripts and styles through [`wp_enqueue_script()`](https://developer.wordpress.org/reference/functions/wp_enqueue_script/) and [`wp_enqueue_style()`](https://developer.wordpress.org/reference/functions/wp_enqueue_style/) rather than putting them directly in your templates. 
+Enqueue scripts and styles through [`wp_enqueue_script()`](https://developer.wordpress.org/reference/functions/wp_enqueue_script/) and [`wp_enqueue_style()`](https://developer.wordpress.org/reference/functions/wp_enqueue_style/) rather than putting them directly in your templates.
 
-## Hooks
-Take advantage of WordPress hooks to abstract operations into your `functions.php` file rather than polluting your template files. 
+WordPress has its own embedded versions of several third-party libraries like `jQuery`, which can be enqueued using the appropriate [handle](https://developer.wordpress.org/reference/functions/wp_enqueue_script/#defaults). If a WP version of a script exists, that version should be used instead of linking to a separate copy. Do **not** override or replace a native WP script as it can cause compatibility problems with plugins or future releases.
+
+It is best practice to enqueue scripts at the end of the document, but if this is not possible due to to the nature of the code (e.g. `Analytics`, `AngularJS`, etc.), it is all right to place them inside the `<head>`.
+
+See also [wp_add_inline_script()](https://developer.wordpress.org/reference/functions/wp_add_inline_script/) for enqueing blocks of code rather than external files.
+
+## Hooks, Actions, and Filters
+Take advantage of WordPress [hooks](https://codex.wordpress.org/Plugin_API#Hooks.2C_Actions_and_Filters) to abstract operations into your `functions.php` file rather than polluting your template files. 
 
 A basic example (see below) is to use the [`wp_head`](https://codex.wordpress.org/Plugin_API/Action_Reference/wp_head) hook to add things like Google Analytics code. 
 
@@ -33,14 +39,13 @@ function custom_google_analytics(){ ?>
 add_action('wp_head', 'custom_google_analytics');
 ```
 
-## jQuery
-If jQuery is being used, please, use the version of jQuery that comes with WordPress rather than dequeueing the script and enqueuing a different version
-
 
 ## Media
 We use Tutan Common JIT Image generation. Please familiarize yourself with some of the code consequences by [reading the documentation](https://github.com/Blobfolio/blob-common/blob/master/blob-common/docs/JIT.md).
 
-**Never display the original size for an image.** Use thoughtful image sizes added through the [`add_image_size()`](https://developer.wordpress.org/reference/functions/add_image_size/) function and call them appropriately. 
+**Never display the original size for an image.** Use thoughtful image sizes added through the [`add_image_size()`](https://developer.wordpress.org/reference/functions/add_image_size/) function and call them appropriately.
+
+The new CSS property `object-fit` is a good responsive alternative to `background-image` for sections like page heroes. [blobject-fit](https://github.com/Blobfolio/blobject-fit) can be enqueued to provide a lightweight fallback for older browsers.
 
 We use Tutan Common WebP functionality to generate WebP versions for browsers that support them. Use [`common_get_webp_srcset()`](https://github.com/Blobfolio/blob-common/blob/master/blob-common/docs/WEBP.md#common_get_webp_srcset) and [`common_get_webp_src()`](https://github.com/Blobfolio/blob-common/blob/master/blob-common/docs/WEBP.md#common_get_webp_src) to get your images.
 
@@ -59,18 +64,31 @@ Use ACF Pro for custom fields. We have a license and will set up the plugin for 
 
 When using ACF Pro to retrieve an image, please configure the field to return only the ID rather than the entire image object. This is less resource-intensive. 
 
-Make use of the [ACF Clone](https://www.advancedcustomfields.com/resources/clone/) field functionality to make reusable components. 
+Make use of the [ACF Clone](https://www.advancedcustomfields.com/resources/clone/) field functionality to make reusable components.
+
+ACF Pro automatically generates a cache of its group and field structure located in `thetheme/acf-json`. Please download and commit these files with the rest of your project.
 
 ## Custom Post Types & Taxonomy
 Do not use plugins for custom post types and custom taxonomies, instead code them manually using [`register_post_type()`](https://codex.wordpress.org/Function_Reference/register_post_type)  and [`register_taxonomy()`](https://codex.wordpress.org/Function_Reference/register_taxonomy) 
 
 ## Forms
-Do not use Gravity Forms. We prefer Formidable Forms for security reasons. 
+Do not use Gravity Forms. We prefer [Formidable Forms](https://wordpress.org/plugins/formidable/) for security reasons.
+
+### Contact Forms
+1. Copies of submissions should be saved to the database and traversable via `wp-admin`. This provides a fallback in the event of email delivery issues.
+2. The visitor's email address should not be used as the "From" address on the generated email. Certain mailserver configurations prohibit "spoofing", which could cause such messages to fail. Note: this does not apply to the "Reply-To" mail header.
+3. If functionality requires a custom form handler, all data must be properly sanitized and passed to [wp_mail()](https://developer.wordpress.org/reference/functions/wp_mail/) or [common_mail()](https://github.com/Blobfolio/blob-common/blob/master/blob-common/docs/EMAIL.md#common_mail) for sending plain text or HTML mail respectively.
 
 ## Debugging
-There will be a debug log on the staging site. Keep an eye on the debug log and address any notices and warnings you control. 
+There will be a debug log on the staging site. Keep an eye on the debug log and address any notices and warnings generated by your code. 
 
-Plugins can also generate items in the log. We do not expect you to fix problems in plugin code. However, if a plugin is generating an excessive amount, its use should be reconsidered.
+Plugins can also generate items in the log. We do not expect you to fix problems in third-party code. However, if a plugin is generating an excessive amount, its use should be reconsidered.
+
+## Miscellaneous
+WordPress functions and features should be leveraged wherever possible:
+1. Link URLs should never be hardcoded; use [get_permalink()](https://developer.wordpress.org/reference/functions/get_permalink/) (or a similar function specific to the page type) to fetch the correct URL;
+2. The front-facing site should never link directly to a PHP script; use the [Rewrite API](https://codex.wordpress.org/Rewrite_API/add_rewrite_rule), [AJAX hooks](https://codex.wordpress.org/AJAX_in_Plugins), or bind the functionality to a specific page or post template.
+3. Use [WP_Query](https://codex.wordpress.org/Class_Reference/WP_Query) and similar functions for retrieving content; if functionality is so specific as to require direct interaction with the database, please contact [josh@brightbrightgreat.com](mailto:josh@brightbrightgreat.com).
 
 ## Help
 
