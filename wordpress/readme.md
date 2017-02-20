@@ -73,7 +73,7 @@ ACF Pro automatically generates a cache of its group and field structure located
 Do not use plugins for custom post types and custom taxonomies, instead code them manually using [`register_post_type()`](https://codex.wordpress.org/Function_Reference/register_post_type)  and [`register_taxonomy()`](https://codex.wordpress.org/Function_Reference/register_taxonomy) 
 
 ## Forms
-Do not use Gravity Forms. We prefer [Formidable Forms](https://wordpress.org/plugins/formidable/) for security reasons.
+Do not use Gravity Forms. We prefer [Ninja Forms](https://ninjaforms.com/) for security reasons.
 
 ### Contact Forms
 1. Copies of submissions should be saved to the database and traversable via `wp-admin`. This provides a fallback in the event of email delivery issues.
