@@ -34,7 +34,9 @@ Master branches are protected and will need administrator approval before a pull
 
 When working on a new project, you can do all your work on a branch called staging. 
 
-When working on existing projects, make new branches for each feature/sprint. Name the branch descriptively but succinctly. Make it easy for others on the team to guess what the branch is for.
+When working on existing projects, make new branches for each feature/sprint. Name the branch descriptively but succinctly. Make it easy for others on the team to guess what the branch is for. Feature branches should be named feature/short-feature-name and bugfix branches should be named bugfix/short-bug-name. 
+
+Be conscientious about referring to GitHub issues etc if relevant in your commit messages. 
 
 Once a sprint is closed and the related branch successfully merged into master, you may delete the related branch. 
 
@@ -48,7 +50,7 @@ We use Grunt for task running. You can find a Gruntfile.js and package.json file
 
 ## Icons
 Use SVG sprites for icons. The Grunt configurations found in the [Skeleton repo](https://github.com/brightbrightgreat/skeleton) includes SVG icon generation. 
-The WordPress skeleton theme includes a function for easily calling icons from the icon sprite in the `functions.php` file (`custom_get_icon()`).
+The WordPress skeleton theme includes a function for easily calling icons from the icon sprite in the `functions.php` file (`bbg_get_icon()`).
 
 ## Help
 If you have any questions, please contact Tiffany Stoik ([tiffany@brightbrightgreat.com](mailto:tiffany@brightbrightgreat.com)).
