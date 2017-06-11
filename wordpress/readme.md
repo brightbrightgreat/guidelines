@@ -30,25 +30,25 @@ A basic example (see below) is to use the [`wp_head`](https://codex.wordpress.or
 
 ###### E X A M P L E
 ```php
-function custom_google_analytics(){ ?>
+function bbg_google_analytics(){ ?>
   <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
     ga('create', 'UA-XXXXXXX-1', 'auto');
     ga('send', 'pageview');
   </script>
 <?php }
-add_action('wp_head', 'custom_google_analytics');
+add_action('wp_head', 'bbg_google_analytics');
 ```
 
 
 ## Media
-We use Tutan Common JIT Image generation. Please familiarize yourself with some of the code consequences by [reading the documentation](https://github.com/Blobfolio/blob-common/blob/master/blob-common/docs/JIT.md).
+We use Tutan Common JIT Image generation. Please familiarize yourself with some of the code consequences by [reading the documentation](https://github.com/Blobfolio/blob-common/blob/master/wp/docs/JIT.md).
 
 **Never display the original size for an image.** Use thoughtful image sizes added through the [`add_image_size()`](https://developer.wordpress.org/reference/functions/add_image_size/) function and call them appropriately.
 
-The new CSS property `object-fit` is a good responsive alternative to `background-image` for sections like page heroes. [blobject-fit](https://github.com/Blobfolio/blobject-fit) can be enqueued to provide a lightweight fallback for older browsers.
+The new CSS property `object-fit` is a good responsive alternative to `background-image` for sections like page heroes. [blobject-fit](https://github.com/Blobfolio/blobject-fit) can be enqueued to provide a lightweight fallback for older browsers. Blobject Fit is provided in the skeleton repo.
 
-We use Tutan Common WebP functionality to generate WebP versions for browsers that support them. Use [`common_get_webp_srcset()`](https://github.com/Blobfolio/blob-common/blob/master/blob-common/docs/WEBP.md#common_get_webp_srcset) and [`common_get_webp_src()`](https://github.com/Blobfolio/blob-common/blob/master/blob-common/docs/WEBP.md#common_get_webp_src) to get your images.
+We use Tutan Common WebP functionality to generate WebP versions for browsers that support them. Use [`common_get_webp_srcset()`](https://github.com/Blobfolio/blob-common/blob/master/wp/docs/WEBP.md#common_get_webp_srcset) and [`common_get_webp_src()`](https://github.com/Blobfolio/blob-common/blob/master/wp/docs/WEBP.md#common_get_webp_src) to get your images.
 
 
 ## Plugins
@@ -58,7 +58,7 @@ You can refer to our list of recommended WordPress Plugins here: https://brightb
 
 The security plugins will already be on staging. You do not have to use any or all of the others, but they’re a good place to start if you’re looking for something in particular. 
 
-Tutan Common is used on all our sites, you can familiarize yourself with the variety of functions it includes [here](https://github.com/Blobfolio/blob-common)
+Tutan Common is used on all our sites, you can familiarize yourself with the variety of functions it includes [here](https://github.com/Blobfolio/blob-common/tree/master/wp/)
 
 ## Custom Fields
 Use ACF Pro for custom fields. We have a license and will set up the plugin for you.
@@ -97,7 +97,8 @@ WordPress functions and features should be leveraged wherever possible:
 
 1. Link URLs should never be hardcoded; use [get_permalink()](https://developer.wordpress.org/reference/functions/get_permalink/) (or a similar function specific to the page type) to fetch the correct URL;
 2. The front-facing site should never link directly to a PHP script; use the [Rewrite API](https://codex.wordpress.org/Rewrite_API/add_rewrite_rule), [AJAX hooks](https://codex.wordpress.org/AJAX_in_Plugins), or bind the functionality to a specific page or post template.
-3. Use [WP_Query](https://codex.wordpress.org/Class_Reference/WP_Query) and similar functions for retrieving content; if functionality is so specific as to require direct interaction with the database, please contact [josh@brightbrightgreat.com](mailto:josh@brightbrightgreat.com).
+3. Use [get_posts](https://developer.wordpress.org/reference/functions/get_posts/), [WP_Query](https://codex.wordpress.org/Class_Reference/WP_Query), and similar functions for retrieving content; if functionality is so specific as to require direct interaction with the database, please contact [josh@brightbrightgreat.com](mailto:josh@brightbrightgreat.com).
+4. Prefix your custom function names with the namespace `bbg` to avoid collisions with plugin or core functions.
 
 ## Help
 
